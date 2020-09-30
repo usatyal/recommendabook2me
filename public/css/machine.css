@@ -1,0 +1,89 @@
+button {
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url("../img/heart_off.png");
+  background-size: 20px;
+}
+
+input[type="checkbox"]:checked {
+  background: url("../img/heart_on.png");
+  background-size: 20px;
+}
+
+td {
+  vertical-align: top;
+}
+
+.related {
+  background-color: #008CBA;
+  color: white;
+}
+
+#errorField {
+  color: red;
+}
+
+.description {
+  color: #008CBA;
+}
+
+.title {
+  font-size: large;
+}
+
+.author {
+  color: #008CBA;
+}
+
+.tip {
+  color: #009144;
+}
+
+.titleSmall {
+  font-size: medium;
+}
+
+.authorSmall {
+  font-size: small;
+  color: #008CBA;
+}
+
+p {
+  font-size: larger;
+}
+
+.withborder:hover {
+  background: #e6e6ff;
+}
+
+#controlContainer {
+  border-right: 1px #e8e8e8 solid;
+}
+
+.withborder {
+  border: 1px #e8e8e8 solid;
+  cursor: default;
+}
+
+.borderless {
+  border: none;
+}
+
+.bottomSeparator {
+  border-bottom: 1px #e8e8e8 solid;
+}
+
+.bigButton {
+  font-size: medium;
+}
+
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}

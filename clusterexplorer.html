@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ClusterExplorer</title>
+    <link rel="shortcut icon" href="">
+    <link rel="stylesheet" href="public/css/ui.css">
+    <link rel="stylesheet" type="text/css" href="public/css/machine.css">
+    <script type="text/javascript" src="public/js/vendor/jquery.js"></script>
+    <script type="text/javascript" src="public/js/vendor/jquery_ui.js"></script>
+    <script type="text/javascript" src="public/js/names.js"></script>
+  </head>
+  <body style="font-family: sans-serif; font-weight: 300;">
+    <p align="center" 
+    style="margin: 20px 15% 20px 15%; 
+    	   border: 2px solid #008CBA;
+    	   box-shadow: 2px 3px #008CBA;
+    	   padding: 10px;
+    ">
+    	This application helps to explore books to read. Start by typing the name of any book below and click show related button. You can adjust the list of related books with <b>Topics</b> on the left side. The book titles are in Finnish.
+    	<a href="/" style="color: #008CBA;">More details</a>
+    </p>
+    <table style="width: 100%; margin-top: 30px;">
+      <tr>
+        <td width="15%"></td>
+        <td width="70%" align="center">
+          <p id="bookNotFound" style="color: red;"></p>
+          <div class="ui-widget">
+            <table>
+              <tr>
+                <td>
+                  <label for="tags"></label>
+                </td>
+                <td>
+                  <input size="50" id="tags">
+                </td>
+                <td>
+                  <button id="pickButton" class="related">SHOW RELATED</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td width="15%"></td>
+      </tr>
+    </table>
+    <table width="100%" id="mainTable" style="display: none;">
+      <tr>
+        <td width="32%">
+          <br>
+          <table width="100%" id="controlContainer">
+          </table>
+          <button class="bigButton" id="moreControls" ></button>
+          <button class="bigButton" id="lessControls" disabled="disabled"></button>
+        </td>
+        <td width="3%">
+        </td>
+        <td width="65%" class="bottomSeparator">
+          <table style="width:100%;" id="bookTable">
+          </table>
+        </td>
+      </tr>
+    </table>
+    <div id="loading" style="display:none; width:69px; height:89px; border:1px solid black; position:absolute; top:50%; left:50%; padding:2px;"><img src='public/img/demo_wait.gif' width="64" height="64" /><br>Loading..</div>
+    <script src="public/js/redirect_script.js"></script>
+    <script src="public/js/events.js"></script> 
+    <script src="public/js/vecLib.js"></script> 
+    <script src="public/js/mgClusters.js"></script> 
+    <script src="public/js/keywords_app.js"></script>
+    <script src="public/js/lang.js"></script>
+    <script src="public/js/localization.js"></script>
+    <script type="text/javascript" src="public/js/main.js"></script>
+  </body>
+</html>
