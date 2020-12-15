@@ -18,7 +18,7 @@ $(document).ready(function(){
 
   $("#tags").autocomplete({
     source: names,
-	minLength: 3
+	  minLength: 3
   });
 
   $.ajaxSetup({
@@ -321,8 +321,11 @@ $(document).ready(function(){
       var button = $("<button name='" + name + "' class='related'>" + localization["relatedButton"][LANG] + "</button>");
       var tdButton = $("<td width='60px' align='right'></td>")
       tdButton.append(button)
-      var tdName = $("<td class='hoverElement' title='" + keyWordStr + "'></td>");
+      //var tdName = $("<td class='hoverElement' title='" + keyWordStr + "'></td>");
+      var tdName = $("<td class='hoverElement'></td>");
+      var bookLink = $("  <a class='book-details' target='_blank' href='/bookdetails/" + name + "'>Read more >></a>");
       tdName.append(getPrettyName(name, false));
+      tdName.append(bookLink)
       button.click(function(e) {
         e.preventDefault();
   		$("#tags").val(e.target.name); 		

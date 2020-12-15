@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	.item-details div {
+		padding-bottom: 10px;
+		display: block;
+	}
+</style>
+</head>
+<body style="font-family: sans-serif; font-weight: 300; margin: 20px 15% 20px 15%;">
+  <h2>Item Details:</h2>
+  <div class="item-details">
+	<%if (CoverImage) { %>
+     <div class="item-image"><img src="<%= CoverImage %>" /></div>
+    <% } %>
+
+    <%if (bookName) { %>
+     <div><b>Item Name: </b> <%= bookName %></div>
+    <% } %>
+
+    <%if (!finnaId) { %>
+     <div>More information not found yet!</div>
+    <% } %>
+
+    <%if (helmetLink) { %>
+     <div><b>Link to the Helmet: </b><a href="<%= helmetLink %>"><%= helmetLink %></a></div>
+    <% } %>
+    
+    <%if (isbn) { %>
+     <div><b>ISBN Number: </b><%= isbn.replace(/[\[\]']+/g,'') %></div>
+    <% } %>
+    
+    <%if (EnglishTitle) { %>
+     <div><b>Alternative Titles: </b><%= EnglishTitle.replace(/[\[\]']+/g,'') %></div>
+    <% } %>
+
+    <%if (Description) { %>
+     <div style="white-space: pre-wrap"><b>Description: </b><%= Description.replace("<br>"," "); %></div>
+    <% } %>
+  </div>
+</body>
+</html>

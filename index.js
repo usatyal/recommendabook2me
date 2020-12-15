@@ -7,6 +7,9 @@ var urlencodedparser = bodyParser.urlencoded({extended:false})
 const httpMsgs = require("http-msgs");
 app.use('/public', express.static(__dirname + '/public'));
 
+// set the view engine to ejs
+app.set('view engine', 'ejs');
+
 //variables
 COORDINATE_FIELD = "svd";
 BOOK_DISPLAY_NUMBER = 10;
@@ -131,8 +134,10 @@ areReverse = function(vector1, vector2) {
 
 //data
 const DATAFILE = require('./public/js/data');
+const ENRICHED_DATAFILE = require('./public/js/enriched_data.js');
 //const CLUSTER = require('./public/js/mgClusters');
 data = DATAFILE.data;
+const enriched_data = ENRICHED_DATAFILE.inriched_data;
 //clusters = CLUSTER.clusters; 
 
 //to use jquery in node
@@ -228,6 +233,33 @@ $.each(data, function(key, value) {
   names.push(key);
 });
 
+// item page 
+app.get('/bookdetails/:url(*)', (req, res) => {
+  var bookName = req.params.url;
+  for(item of enriched_data) {
+    if (bookName === item.teos) {
+      var teos_id = item.teos_id;
+      var helmetId = item.helmetId;
+      var helmetLink = item.helmetLink;
+      var finnaId = item.finnaId;
+      var isbn = item.isbn;
+      var EnglishTitle = item.EnglishTitle;
+      var Description = item.Description;
+      var CoverImage = item.CoverImage;
+    }
+  }
+  res.render('bookdetails', {
+        teos_id: teos_id,
+        helmetId: helmetId,
+        helmetLink: helmetLink,
+        finnaId: finnaId,
+        isbn: isbn,
+        EnglishTitle: EnglishTitle,
+        Description: Description,
+        CoverImage: CoverImage,
+        bookName: bookName
+      });
+});
 // index page 
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, "/index.html"));
