@@ -137,7 +137,7 @@ const DATAFILE = require('./public/js/data');
 const ENRICHED_DATAFILE = require('./public/js/enriched_data.js');
 //const CLUSTER = require('./public/js/mgClusters');
 data = DATAFILE.data;
-const enriched_data = ENRICHED_DATAFILE.inriched_data;
+const enriched_data = ENRICHED_DATAFILE.enriched_data;
 //clusters = CLUSTER.clusters; 
 
 //to use jquery in node
@@ -158,13 +158,28 @@ getNeighbourArray = function(vector) {
     distance = getCosine(vector, value[COORDINATE_FIELD]);
     distArray.push({
       dist: distance,
-      obj: value
+      obj: value,
+      details: []
     });
   });
   distArray.sort(function(a, b) {
     return b["dist"] - a["dist"];
   });
-  return distArray.slice(0, BOOK_DISPLAY_NUMBER)
+  distArray = distArray.slice(0, BOOK_DISPLAY_NUMBER)
+  for (const i in distArray){
+    for (const j in enriched_data) {
+      if (distArray[i]["obj"]["books"][0]["name"] == enriched_data[j]["teos"]){
+        distArray[i]["details"].push({
+          helmetLink: enriched_data[j]["helmetLink"],
+          isbn: enriched_data[j]["isbn"],
+          EnglishTitle: enriched_data[j]["EnglishTitle"],
+          Description: enriched_data[j]["Description"],
+          CoverImage: enriched_data[j]["CoverImage"]
+        });
+      }
+    }
+  }
+  return distArray
 };
 
 getDistance = function(coord1, coord2) {

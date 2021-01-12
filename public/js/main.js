@@ -60,7 +60,7 @@ $(document).ready(function(){
       titleStyle += "Small";
       authorStyle += "Small";
     }
-    out = "<span class='" + titleStyle + "'>";
+    out = "<h2><span class='" + titleStyle + "'>";
     sepIndex = bookName.indexOf('/');
     if (sepIndex == -1) {
       return out + bookName + "</span>";
@@ -70,7 +70,7 @@ $(document).ready(function(){
     out += bookTitle
     out += "</span><span class='" + authorStyle + "'>";
     out += bookAuthor;
-    out += "</span>"
+    out += "</span></h2>"
     return out;
   };
 
@@ -233,9 +233,9 @@ $(document).ready(function(){
     });
     $.each(cart, function(key, name) {
       tr = $("<tr></tr>");
-      keyWordStr = getDescriptionByKeywords(keywordDict[name], MAX_KEYWORDS_PER_BOOK);
-      keyWordStr = "<b>Keywords: </b>" + keyWordStr;
-      tdName = $("<td class='hoverElement' title='" + keyWordStr + "'></td>");
+      // keyWordStr = getDescriptionByKeywords(keywordDict[name], MAX_KEYWORDS_PER_BOOK);
+      // keyWordStr = "<b>Keywords: </b>" + keyWordStr;
+      tdName = $("<td class='hoverElement' title=''></td>");
       tdName.append(getPrettyName(name, false));
       tableContainter = $("<table class='borderless' width='100%'></table>");
       trContainer = $("<tr></tr>");
@@ -315,17 +315,39 @@ $(document).ready(function(){
     for (var i = 0; i < BOOK_DISPLAY_NUMBER; i++) {
       value = distArray[i];
       name = value["obj"]["books"][0]["name"]
+      bookdetails = value["details"][0]
       var tr = $("<tr></tr>");
-      keyWordStr = getDescriptionByKeywords(keywordDict[name], MAX_KEYWORDS_PER_BOOK);
-      keyWordStr = localization["bookTooltip"][LANG] + keyWordStr;
+      // keyWordStr = getDescriptionByKeywords(keywordDict[name], MAX_KEYWORDS_PER_BOOK);
+      // keyWordStr = localization["bookTooltip"][LANG] + keyWordStr;
       var button = $("<button name='" + name + "' class='related'>" + localization["relatedButton"][LANG] + "</button>");
       var tdButton = $("<td width='60px' align='right'></td>")
       tdButton.append(button)
-      //var tdName = $("<td class='hoverElement' title='" + keyWordStr + "'></td>");
       var tdName = $("<td class='hoverElement'></td>");
-      var bookLink = $("  <a class='book-details' target='_blank' href='/bookdetails/" + name + "'>Read more >></a>");
       tdName.append(getPrettyName(name, false));
-      tdName.append(bookLink)
+      if(bookdetails && bookdetails["CoverImage"]) {
+        var bookImage = $("<img id='bookImage' src='"+ bookdetails["CoverImage"] +"'>");
+        tdName.append(bookImage);
+      }
+      if (bookdetails && bookdetails["Description"]) {
+        var bookDescription = $("<div id='bookDesc'> "+ bookdetails["Description"] +" </div>");
+        tdName.append(bookDescription);
+      }
+
+      if (bookdetails && bookdetails["helmetLink"]) {
+        var helmetLink = $("<div id='helmetLink'><b>Link to the Helmet: </b><a href='"+bookdetails["helmetLink"]+"' target='_blank'>"+bookdetails["helmetLink"]+"</a></div>");
+        tdName.append(helmetLink);
+      }
+
+      if (bookdetails && bookdetails["isbn"]) {
+        var isbn = $("<div id='isbn'><b>ISBN: </b>"+bookdetails["isbn"].replace(/[\[\]']+/g,'')+"</div>");
+        tdName.append(isbn);
+      }
+
+      if (bookdetails && bookdetails["EnglishTitle"]) {
+        var EnglishTitle = $("<div id='EnglishTitle'><b>Alternative title/(s): </b>"+bookdetails["EnglishTitle"].replace(/[\[\]']+/g,'')+"</div>");
+        tdName.append(EnglishTitle)
+      }
+
       button.click(function(e) {
         e.preventDefault();
   		$("#tags").val(e.target.name); 		
@@ -345,7 +367,7 @@ $(document).ready(function(){
 	    	   }
 	           updateNeighbours();
 	           createControls();
-	    	   updateClusterButtons();
+	    	     updateClusterButtons();
 	           saveHistory();
 	           updateCartTable();
 	          }
@@ -388,14 +410,15 @@ $(document).ready(function(){
         data: {"input":inputValue}, 
         success: function(data){
            distArray = data.dist;
+           bookdetails = data.bookdetails
            currentCoordinates = data.curcor;
            if (!INITIATED) {
-		      $("#mainTable").css("display", "initial");
-		      INITIATED = true;
-    	   }
+		        $("#mainTable").css("display", "initial");
+		        INITIATED = true;
+    	     }
            updateNeighbours();
            createControls();
-    	   updateClusterButtons();
+    	     updateClusterButtons();
            saveHistory();
            updateCartTable();
            $("#bookNotFound").empty();
